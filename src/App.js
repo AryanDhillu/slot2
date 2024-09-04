@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import RulesPage from './components/Rulespage';
 import LoginPage from './components/loginpage';
@@ -12,9 +12,10 @@ import Levelsix from './components/Levelsix';
 import Levelseven from './components/Levelseven';
 import Leveleight from './components/Leveleight';
 import Leaderboard from './components/Leaderboard';
-import SecretCodePage from './components/SecretCodePage'; // Import the new SecretCodePage
-import ProtectedRoute from './components/ProtectedRoute'; // Import the updated ProtectedRoute
-import { FaClock, FaTrophy } from 'react-icons/fa'; // Import the trophy icon
+import SecretCodePage from './components/SecretCodePage';
+import ProtectedRoute from './components/ProtectedRoute';
+import TimeUpPage from './components/TimeUpPage'; // Import the TimeUpPage component
+import { FaClock, FaTrophy } from 'react-icons/fa';
 
 import './components/styles/App.css';
 
@@ -39,67 +40,63 @@ function Layout() {
 
   const [timerEnded, setTimerEnded] = useState(false);
 
-  // User Information State
   const [username, setUsername] = useState(() => {
     return localStorage.getItem('username') || '';
   });
+
   const [rollnum, setRollnum] = useState(() => {
     return localStorage.getItem('rollnum') || '';
   });
 
-  // Score State
   const [score, setScore] = useState(() => {
     const savedScore = localStorage.getItem('score');
     return savedScore !== null ? parseInt(savedScore, 10) : 0;
   });
 
-  // Popup State
   const [isPopupVisible, setPopupVisible] = useState(false);
 
-  const location = useLocation(); // Get the current route path
+  const location = useLocation();
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
-  // Timer Effect
   useEffect(() => {
     let timer;
     if (timerRunning && timeLeft > 0) {
       timer = setInterval(() => {
         setTimeLeft((prevTimeLeft) => {
           const newTimeLeft = prevTimeLeft - 1;
-          localStorage.setItem('timeLeft', newTimeLeft); // Save timeLeft to localStorage
+          localStorage.setItem('timeLeft', newTimeLeft);
           return newTimeLeft;
         });
       }, 1000);
     } else if (timeLeft <= 0) {
       setTimerEnded(true);
-      setTimerRunning(false); // Stop the timer
-      clearLocalStorage(); // Clear the local storage
+      setTimerRunning(false);
+      clearLocalStorage();
       if (timer) clearInterval(timer);
+      navigate('/timeup'); // Redirect to the "Time Up" page
     }
     return () => clearInterval(timer);
-  }, [timerRunning, timeLeft]);
+  }, [timerRunning, timeLeft, navigate]);
 
-  // Start Timer
   const startTimer = () => {
-    setTimerRunning(true); // Start the timer
-    localStorage.setItem('timerRunning', true); // Save timerRunning to localStorage
+    setTimerRunning(true);
+    localStorage.setItem('timerRunning', true);
   };
 
-  // Convert UTC to IST
   const convertToIST = (date) => {
-    const offset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const offset = 5.5 * 60 * 60 * 1000;
     return new Date(date.getTime() + offset).toISOString();
   };
 
-  // Send Timestamp and TimeLeft to Backend
   const sendTimestamp = () => {
-    const timestampUTC = new Date(); // Current time in UTC
-    const timestampIST = convertToIST(timestampUTC); // Convert to IST
+    const timestampUTC = new Date();
+    const timestampIST = convertToIST(timestampUTC);
     fetch('https://jsonserver-production-dc15.up.railway.app/records', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ timestamp: timestampIST, timeLeft }), // Send both timestamp and timeLeft
+      body: JSON.stringify({ timestamp: timestampIST, timeLeft }),
     })
       .then(response => response.json())
       .then(data => {
@@ -110,7 +107,6 @@ function Layout() {
       });
   };
 
-  // Function to update username and rollnum
   const setUserInfo = (userName, userRollnum) => {
     setUsername(userName);
     setRollnum(userRollnum);
@@ -118,14 +114,11 @@ function Layout() {
     localStorage.setItem('rollnum', userRollnum);
   };
 
-  // Function to clear local storage when the timer ends
   const clearLocalStorage = () => {
     localStorage.removeItem('timeLeft');
     localStorage.removeItem('timerRunning');
-    // Optionally, clear other user-related data
   };
 
-  // Score Persistence
   useEffect(() => {
     localStorage.setItem('score', score);
   }, [score]);
@@ -139,26 +132,28 @@ function Layout() {
   };
 
   if (timerEnded) {
-    return <div className="timer-ended">Time is up! All components are hidden.</div>;
+    return <TimeUpPage/>;
   }
 
   return (
     <div>
-      {(location.pathname !== '/' && location.pathname !== '/rules') && (
-        <div className='timer1'>
-          <div className='row'>
-            <FaClock className="clock-icon" />
-            <p>Time left: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</p>
-            <button onClick={handlePopupOpen} className="leaderboard-button">
-              <FaTrophy /> Show Leaderboard
-            </button>
+      {location.pathname !== '/timeup' && (location.pathname !== '/' && location.pathname !== '/rules' && location.pathname !== '/secret') && (
+        <div className='space'>
+          <div className='timer1'>
+            <div className='row'>
+              <FaClock className="clock-icon" />
+              <p>Time left: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</p>
+            </div>
           </div>
+          <button onClick={handlePopupOpen} className="leaderboard-button">
+            <FaTrophy /> Show Leaderboard
+          </button>
         </div>
       )}
 
       {isPopupVisible && (
         <div className="popup-overlay">
-          <div className="popup-content">
+          <div className="leader">
             <button onClick={handlePopupClose} className="popup-close-button">Close</button>
             <Leaderboard
               username={username}
@@ -330,6 +325,14 @@ function Layout() {
                   score={score} 
                 />
               } 
+            />
+          } 
+        />
+        <Route 
+          path="/timeup" 
+          element={
+            <TimeUpPage 
+              clearLocalStorage={clearLocalStorage} // Pass the clearLocalStorage function to TimeUpPage
             />
           } 
         />

@@ -6,8 +6,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: transparent;
+    background-color: 
+    black;
 }
+
+.popup{
+    background-color: black;
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+
+}
+/* CSS file: index.css or a specific stylesheet */
+.size{
+    height: 50vh;
+    width: 40vw;
+}
+.secretcode-page .space,
+.secretcode-page .leaderboard-button {
+  display: none; 
+ /* This will hide the elements */
+}
+
 
 #tsparticles {
     position: absolute;
@@ -17,7 +42,25 @@
     height: 100%;
     z-index: 1;
 }
+.row1{
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-items: center;
+    padding: 5px;
+    margin-left:-5%;
+    margin: 2vh;
 
+}
+.row2{
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-items: center;
+    padding: 5px;
+    background-color: black;
+
+}
 .secretcode-container {
     display: flex;
     flex-direction: row;

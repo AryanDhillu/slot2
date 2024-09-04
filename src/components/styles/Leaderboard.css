@@ -2,23 +2,51 @@
 
 .leaderboard-page {
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: transparent;
     text-align: center;
     height: 100vh;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
-  
+  /* Existing styles... */
+
+.trophy-icon {
+  color: gold;
+  margin-left: 10px; /* Adjust as needed */
+  font-size: 1.2em; /* Adjust size if needed */
+}
+
   .leaderboard-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
+    width: 500px;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    margin-right: 5px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
   }
-  
+  /* Existing styles... */
+
+.leaderboard-score.first-place {
+  color: yellow;
+}
+
+.leaderboard-score.second-place {
+  color: green;
+}
+
+.leaderboard-score.third-place {
+  color: red;
+}
+
   h1 {
     font-size: 2rem;
-    color: #333;
+    color: #007bff;
+    font-family: playfair display;
     margin-bottom: 20px;
   }
   
@@ -42,18 +70,18 @@
   
   .leaderboard-rank {
     font-weight: bold;
-    color: #333;
+    color: #555;
   }
   
   .leaderboard-name {
     flex: 1;
     text-align: left;
-    color: #555;
+    color: #fff;
   }
   
   .leaderboard-score {
     font-weight: bold;
-    color: #ff9800;
+    color: #007bff;
   }
   
   @media (max-width: 600px) {

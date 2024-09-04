@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import './styles/Leaderboard.css'; // Ensure this path is correct
 
 const Leaderboard = () => {
@@ -35,8 +37,29 @@ const Leaderboard = () => {
               {leaderboardData.map((player, index) => (
                 <li key={player.id || index} className="leaderboard-item">
                   <span className="leaderboard-rank">{index + 1}. </span>
-                  <span className="leaderboard-name">{player.username}</span>
-                  <span className="leaderboard-score">{player.score}</span>
+                  <span> <td></td><td></td><td></td><td></td><td></td></span>
+                  <span className="leaderboard-name">
+                    {player.username}
+                    {index === 0
+                      // <FontAwesomeIcon
+                      //   icon={faTrophy}
+                      //   className="trophy-icon"
+                      // />
+                    }
+                  </span>
+                  <span
+                    className={`leaderboard-score ${
+                      index === 0
+                        ? 'first-place'
+                        : index === 1
+                        ? 'second-place'
+                        : index === 2
+                        ? 'third-place'
+                        : ''
+                    }`}
+                  >
+                    {player.score} units
+                  </span>
                 </li>
               ))}
             </ul>
@@ -50,3 +73,6 @@ const Leaderboard = () => {
 };
 
 export default Leaderboard;
+
+
+
