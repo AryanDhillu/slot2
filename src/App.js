@@ -87,24 +87,6 @@ function Layout() {
     return new Date(date.getTime() + offset).toISOString();
   };
 
-  const sendTimestamp = () => {
-    const timestampUTC = new Date();
-    const timestampIST = convertToIST(timestampUTC);
-    fetch('https://jsonserver-production-dc15.up.railway.app/records', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ timestamp: timestampIST, timeLeft }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Timestamp and timeLeft sent:', data);
-      })
-      .catch(error => {
-        console.error('Error sending timestamp and timeLeft:', error);
-      });
-  };
 
   const setUserInfo = (userName, userRollnum) => {
     setUsername(userName);

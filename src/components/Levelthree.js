@@ -6,14 +6,14 @@ import Level1Img from './images/1267912.jpg';
 import Img from './images/img.png';
 import LeftImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
 import ParticlesComponent from '../components/ParticlesComponent'; 
-import { FaClock, FaPaperPlane, FaStar } from 'react-icons/fa'; // Import icons
+import { FaPaperPlane, FaStar } from 'react-icons/fa'; // Import icons
 import { GiLightningStorm } from 'react-icons/gi'; // Example import
 import CryptoJS from 'crypto-js';
 
 const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const navigate = useNavigate();
   const [submittedAnswer, setSubmittedAnswer] = useState('');
-  const [time, setTime] = useState(timeLeft || 1800);
+  // const [time, setTime] = useState(timeLeft || 1800);
   const [response, setResponse] = useState('');
   const [validationResult, setValidationResult] = useState('');
   const [castSpellAnswer, setCastSpellAnswer] = useState('');
@@ -141,12 +141,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       console.error('An error occurred while updating data:', error);
     }
   };
-    
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}:${secs < 10 ? `0${secs}` : secs}`;
-  };
+ 
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
