@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import "animate.css";
 import { useNavigate } from 'react-router-dom';
 import './styles/Level1Page.css'; // Ensure this path is correct
@@ -9,13 +9,12 @@ import ParticlesComponent from '../components/ParticlesComponent';
 import { FaClock, FaPaperPlane, FaStar } from 'react-icons/fa'; // Import icons
 import { GiLightningStorm } from 'react-icons/gi'; // Example import
 import CryptoJS from 'crypto-js';
-// import Img from './images/img.png';
 
 const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const navigate = useNavigate();
   const [submittedAnswer, setSubmittedAnswer] = useState('');
-  const [response, setResponse] = useState('');
   const [time, setTime] = useState(timeLeft || 1800);
+  const [response, setResponse] = useState('');
   const [validationResult, setValidationResult] = useState('');
   const [castSpellAnswer, setCastSpellAnswer] = useState('');
   const [password, setPassword] = useState('');
@@ -23,31 +22,29 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSuccessPopupVisible, setSuccessPopupVisible] = useState(false);
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
-  const totalLevels = 8;
+  const totalLevels = 5;
   const currentLevel = 3; // Set current level directly as a constant
 
   // Example hash (replace this with your actual hash)
-  const hashedPassword = '73c6728d419fee61bf82b5e2c07ee2b8b73192a1656872b0227b3abdc82f7df9'; // Example SHA-256 hash
-  const handleSubmit =async (event) => {
+  const hashedPassword = 'ec28e6094c3c7d86adabcf28217b224084d9097d234852dee4b560b6ea79582b'; // Example SHA-256 hash
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-  
+    
     try {
-      // Check the input for the specific word
-      if (password === 'expectropatronum') {
-        setResponse('I am a large language model, maintained by Facebook. Who Am I??');
-      } else {
-       const res = await fetch('http://localhost/generate_lvl8', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ prompt: password }),
-        });
-  
-        const data = await res.json();
-        setResponse(data.response);
-      }
+      // Send the submitted answer to the backend
+      const res = await fetch('/api/generate-3/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: password }),
+      });
+
+      const data = await res.json();
+      setResponse(data.response);
+
     } catch (error) {
       console.error('An error occurred:', error);
       setResponse('An error occurred');
@@ -55,7 +52,6 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       setLoading(false);
     }
   };
-  
 
   const handleValidate = () => {
     try {
@@ -75,7 +71,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleCastSpell = () => {
-    const dummyPassword = 'ransomware'; // Dummy password for testing
+    const dummyPassword = 'reconnaissance'; // Dummy password for testing
     if (castSpellAnswer.toLowerCase() === dummyPassword) {
       setIsSpellValidated(true); // Spell validated successfully
     } else {
@@ -158,7 +154,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     }
   };
 
-  const progressPercentage = (currentLevel / totalLevels) * 90; // Adjust progress percentage calculation
+  const progressPercentage = (currentLevel / totalLevels) * 0; // Adjust progress percentage calculation
 
   return (
     <div className="level1-page">
@@ -187,15 +183,21 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                 <p className="animate__animated animate__backInLeft">I am happy to reveal the password.</p>
               </div>
               <div className="password-section">
-                <div className="input-wrapper animate__animated animate__fadeInUpBig">
-                  <textarea
-                    className="password-input"
-                    placeholder="Enter your prompt here"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <FaPaperPlane onClick={handleSubmit} className="submit-icon" />
+               <div className="input-wrapper animate__animated animate__fadeInUpBig">
+                  {loading ? (
+                    <div className="loading-indicator">
+                      <p>Loading...</p> {/* Display a loading message */}
+                    </div>
+                  ) : (
+                    <textarea
+                      className="password-input"
+                      placeholder="Enter your prompt here"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={loading} // Disable input when loading
+                    />
+                  )}
+                  <FaPaperPlane onClick={handleSubmit} className={`submit-icon ${loading ? 'disabled' : ''}`} />
                 </div>
                 <p className="response-text">{response}</p>
               </div>
@@ -223,43 +225,43 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       {isSuccessPopupVisible && (
         <div className="success-popup animate__animated animate__fadeInDownBig">
           <div className="popup-content">
-          <h1 className='heading animate__animated animate__fadeInUpBig' style={{color:"green"}}>Congratulations!</h1>
+            <h1 className='heading animate__animated animate__fadeInUpBig' style={{color:"green"}}>Congratulations!</h1>
 
             {isSpellValidated ? (
               <div>
                 <div className="stars  animate__animated animate__fadeInLeft">
-              <FaStar className="star-icon" />
-              <FaStar className="star-icon center" />
-              <FaStar className="star-icon" />
-            </div>
+                  <FaStar className="star-icon" />
+                  <FaStar className="star-icon center" />
+                  <FaStar className="star-icon" />
+                </div>
                 <p className=' animate__animated animate__fadeInRight'>You have successfully cast the spell. Here’s to learning a new one!</p>
                 <button className=" animate__animated animate__fadeInDownBig" onClick={handleNextLevel}>Next Level</button>
               </div>
             ) : (
               <div className='column'>
                 <img src={Img} alt="hat" className='photo  animate__animated animate__fadeInLeft' />
-                <h1 className='heading  animate__animated animate__fadeInRight' style={{color:"red"}}>"Ransomware"</h1>
+                <h1 className='heading  animate__animated animate__fadeInRight' style={{color:"red"}}>"Reconnaissance"</h1>
                 <h1 className="level-indicator  animate__animated animate__fadeInLeft">Cast the spell to proceed:</h1>
                 
                 <p className=' animate__animated animate__fadeInRight'> 
-                Ransomware is a form of malware that encrypts the victim's data or locks them out of their system.
+                  Reconnaissance refers to the process where attackers gather information about a target system, network, or organization before launching an attack. 
                 </p>
                 
                 <br/>
-                <div className="input-wrapper2">
-               
-                   
-                  <input
-                  className="password-input"
-                    type="text"
-                    value={castSpellAnswer}
-                    onChange={(e) => setCastSpellAnswer(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
-                  </div>
+                
+                  <div className='input-wrapper2'>
+                    <input
+                      className="password-input"
+                      type="text"
+                      value={castSpellAnswer}
+                      onChange={(e) => setCastSpellAnswer(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    
+                    <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
+                 
                 </div>
-              
+              </div>
             )}
           </div>
         </div>

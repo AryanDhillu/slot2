@@ -8,14 +8,13 @@ import Leveltwo from './components/Leveltwo';
 import Levelthree from './components/Levelthree';
 import Levelfour from './components/Levelfour';
 import Levelfive from './components/Levelfive';
-import Levelsix from './components/Levelsix';
-import Levelseven from './components/Levelseven';
-import Leveleight from './components/Leveleight';
 import Leaderboard from './components/Leaderboard';
 import SecretCodePage from './components/SecretCodePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import TimeUpPage from './components/TimeUpPage'; // Import the TimeUpPage component
 import { FaClock, FaTrophy } from 'react-icons/fa';
+
+
 
 import './components/styles/App.css';
 
@@ -256,54 +255,6 @@ function Layout() {
             <ProtectedRoute 
               element={
                 <Levelfive 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/level6" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Levelsix 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/level7" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Levelseven 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/level8" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Leveleight 
                   username={username} 
                   rollnum={rollnum} 
                   timeLeft={timeLeft} 

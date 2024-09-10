@@ -22,7 +22,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSuccessPopupVisible, setSuccessPopupVisible] = useState(false);
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
-  const totalLevels = 8;
+  const totalLevels = 5;
   const currentLevel = 1; // Set current level directly as a constant
 
   // Example hash (replace this with your actual hash)
@@ -34,7 +34,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     
     try {
       // Send the submitted answer to the backend
-      const res = await fetch('http://localhost/generate_lvl1', {
+      const res = await fetch('/api/generate-1/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -183,15 +183,21 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                 <p className="animate__animated animate__backInLeft">I am happy to reveal the password.</p>
               </div>
               <div className="password-section">
-                <div className="input-wrapper animate__animated animate__fadeInUpBig">
-                  <textarea
-                    className="password-input"
-                    placeholder="Enter your prompt here"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <FaPaperPlane onClick={handleSubmit} className="submit-icon" />
+               <div className="input-wrapper animate__animated animate__fadeInUpBig">
+                  {loading ? (
+                    <div className="loading-indicator">
+                      <p>Loading...</p> {/* Display a loading message */}
+                    </div>
+                  ) : (
+                    <textarea
+                      className="password-input"
+                      placeholder="Enter your prompt here"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={loading} // Disable input when loading
+                    />
+                  )}
+                  <FaPaperPlane onClick={handleSubmit} className={`submit-icon ${loading ? 'disabled' : ''}`} />
                 </div>
                 <p className="response-text">{response}</p>
               </div>
