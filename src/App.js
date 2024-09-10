@@ -82,11 +82,6 @@ function Layout() {
     localStorage.setItem('timerRunning', true);
   };
 
-  const convertToIST = (date) => {
-    const offset = 5.5 * 60 * 60 * 1000;
-    return new Date(date.getTime() + offset).toISOString();
-  };
-
 
   const setUserInfo = (userName, userRollnum) => {
     setUsername(userName);
