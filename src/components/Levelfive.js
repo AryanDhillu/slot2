@@ -13,7 +13,7 @@ import CryptoJS from 'crypto-js';
 const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const navigate = useNavigate();
   const [submittedAnswer, setSubmittedAnswer] = useState('');
-  // const [time, setTime] = useState(timeLeft || 1800);
+  const time = timeLeft;
   const [response, setResponse] = useState('');
   const [validationResult, setValidationResult] = useState('');
   const [castSpellAnswer, setCastSpellAnswer] = useState('');
