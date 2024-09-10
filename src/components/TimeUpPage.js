@@ -42,7 +42,7 @@ function TimeUpPage() {
       >
         <FaTrophy /> Show Leaderboard
       </button>
-      <h1 style={{color:"red "}}>Time's Up!</h1>
+      <h1 style={{color:"red "}}>Alasyam Ayyindha Acharya Puthra</h1>
       <div className="row1">
         <img src={bujji} alt="img" className='size'/>
         <div style={{marginRight:"7vw"}}>

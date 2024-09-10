@@ -28,25 +28,26 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
 
   // Example hash (replace this with your actual hash)
   const hashedPassword = '73c6728d419fee61bf82b5e2c07ee2b8b73192a1656872b0227b3abdc82f7df9'; // Example SHA-256 hash
-
-
-  const handleSubmit = async (event) => {
+  const handleSubmit =async (event) => {
     event.preventDefault();
     setLoading(true);
-    
+  
     try {
-      // Send the submitted answer to the backend
-      const res = await fetch('http://localhost/generate_lvl8', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt: password }),
-      });
-
-      const data = await res.json();
-      setResponse(data.response);
-
+      // Check the input for the specific word
+      if (password === 'expectropatronum') {
+        setResponse('I am a large language model, maintained by Facebook. Who Am I??');
+      } else {
+       const res = await fetch('http://localhost/generate_lvl8', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ prompt: password }),
+        });
+  
+        const data = await res.json();
+        setResponse(data.response);
+      }
     } catch (error) {
       console.error('An error occurred:', error);
       setResponse('An error occurred');
@@ -54,6 +55,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       setLoading(false);
     }
   };
+  
 
   const handleValidate = () => {
     try {
@@ -244,8 +246,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                 </p>
                 
                 <br/>
-                <div className="input-wrapper1">
-                <div className='input-wrapper'>
+                <div className="input-wrapper2">
+               
                    
                   <input
                   className="password-input"
@@ -257,7 +259,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                   <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
                   </div>
                 </div>
-              </div>
+              
             )}
           </div>
         </div>

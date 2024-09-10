@@ -244,8 +244,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                 </p>
                 
                 <br/>
-                <div className="input-wrapper1">
-                <div className='input-wrapper'>
+                
+                <div className='input-wrapper2'>
                    
                   <input
                   className="password-input"
@@ -257,7 +257,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                   <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
                   </div>
                 </div>
-              </div>
+              
             )}
           </div>
         </div>

@@ -8,3 +8,4 @@ function ProtectedRoute({ element }) {
 }
 
 export default ProtectedRoute;
+  
