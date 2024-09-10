@@ -83,6 +83,7 @@ function Layout() {
   };
 
 
+
   const setUserInfo = (userName, userRollnum) => {
     setUsername(userName);
     setRollnum(userRollnum);
@@ -141,13 +142,13 @@ function Layout() {
       )}
 
       <Routes>
-        <Route path="/secret" element={<SecretCodePage />} />
+        <Route path="/" element={<SecretCodePage />} />
         <Route 
           path="/login" 
           element={<LoginPage startTimer={startTimer} setUserInfo={setUserInfo} />} 
         />
         <Route 
-          path="/" 
+          path="/home" 
           element={
             <ProtectedRoute 
               element={<HomePage />} 
