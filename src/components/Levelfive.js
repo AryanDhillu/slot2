@@ -134,13 +134,13 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
             if (updateResponse.ok) {
               console.log('Data updated successfully:', data);
               setScore(newScore); // Update the score locally
-              navigate(`/leaderborad`); // Navigate to the next level
+              navigate(`/leaderboard`); // Navigate to the next level
             } else {
               console.error('Failed to update data:', updateResponse.statusText);
             }
           } else {
             // If the level does not match the required criteria, just navigate to the next level
-            navigate(`/leaderborad`);
+            navigate(`/leaderboard`);
           }
         } else {
           console.error('No existing data found for the given roll number.');
