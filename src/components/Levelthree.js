@@ -22,8 +22,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSuccessPopupVisible, setSuccessPopupVisible] = useState(false);
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
-  const totalLevels = 3;
-  const currentLevel = 1; // Set current level directly as a constant
+  const totalLevels = 5;
+  const currentLevel = 3; // Set current level directly as a constant
 
   // Example hash (replace this with your actual hash)
   const hashedPassword = '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a'; // Example SHA-256 hash
