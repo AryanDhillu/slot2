@@ -110,7 +110,7 @@ function Layout() {
   };
 
   if (timerEnded) {
-    return <TimeUpPage/>;
+    return <TimeUpPage clearLocalStorage={clearLocalStorage}  rollnum={rollnum} />;
   }
 
   return (
@@ -264,6 +264,8 @@ function Layout() {
           element={
             <TimeUpPage 
               clearLocalStorage={clearLocalStorage} // Pass the clearLocalStorage function to TimeUpPage
+              rollnum={rollnum} 
+              username={username} 
             />
           } 
         />
