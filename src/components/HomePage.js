@@ -4,7 +4,7 @@ import './home.css';
 import { useNavigate } from 'react-router-dom';
 import './styles/App.css';
 import harryPotterImg from './images/Harry.png';
-import LeftImage from './images/first.jpg';
+import LeftImage from './images/first.png';
 
 const HomePage = () => {
   const navigate = useNavigate(); // Using useNavigate hook
