@@ -4,7 +4,7 @@ import './home.css'
 import { useNavigate } from 'react-router-dom'; // Use useNavigate
 import './styles/App.css'; // Assuming you have your custom CSS for background and other styles
 import harryPotterImg from './images/Harry.png'; // Correct import path
-import HomeImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
+ // Import the image for the left side
 
 const HomePage = () => {
   const navigate = useNavigate(); // Use navigate instead of history
@@ -19,7 +19,7 @@ const HomePage = () => {
       style={{ backgroundImage: `url(${harryPotterImg})` }} // Set background image
     >
        <div className="absolute left-[calc(50%+220px)] top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-      <img src={HomeImage} alt="RIGHT Side" className="home-image animate__animated animate__fadeInTopRight" />
+      <img src="/SATARCLEFTIMAGE.png" alt="RIGHT Side" className="home-image animate__animated animate__fadeInTopRight" />
         <button
           onClick={handleClick}
           

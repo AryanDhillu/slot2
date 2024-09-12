@@ -5,24 +5,24 @@ import { useNavigate } from 'react-router-dom'; // Use useNavigate
 const accordionData = [
   {
     id: 1,
-    title: 'What is Expecto Patronum?',
-    content: 'E.P is an exciting game designed to challenge your ability to interact with large language models (LLMs).'
+    title: 'What is Hack The Bot?',
+    content: 'Hack The Bot is an exciting game designed to challenge your ability to interact with large language models (LLMs).'
   },
   {
     id: 2,
     title: 'What should I do?',
-    content: 'Your goal is to trick Expecto into revealing the secret password for each level. However, Expecto will level up each time you guess the password.'
+    content: 'Your goal is to trick Bujji into revealing the secret password for each level. However, Expecto will level up each time you guess the password.'
   },
   {
     id: 3,
     title: 'How many levels are there?',
-    content: '8 levels'
+    content: '3 levels'
   },
-  {
-    id: 4,
-    title: 'Additional Info',
-    content: 'Some more details about the game.'
-  }
+  // {
+  //   id: 4,
+  //   title: 'Does',
+  //   content: 'Some more details about the game.'
+  // }
 ];
 
 const RulesPage = () => {
