@@ -44,9 +44,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
 
       const data = await res.json();
       setResponse(data.response);
-
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.log('An error occurred');
       setResponse('An error occurred');
     } finally {
       setLoading(false);
