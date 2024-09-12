@@ -35,7 +35,7 @@ const LoginPage = ({ startTimer, setUserInfo }) => {
 
   const validateKey = (key) => {
     // Replace 'SECRET_KEY' with the actual key you want to validate against
-    const expectedKey = '123'; 
+    const expectedKey = 'lastchance'; 
     if (key !== expectedKey) {
       return "Incorrect key. Please try again.";
     }

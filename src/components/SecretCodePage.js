@@ -10,7 +10,7 @@ function SecretCodePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (code === 'hii') {
+    if (code === 'labspapa') {
       // Store secret code in localStorage to simulate "authentication"
       localStorage.setItem('secretCode', 'true');
       navigate('/home');  // Navigate to protected route
