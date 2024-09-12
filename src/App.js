@@ -8,6 +8,7 @@ import Leveltwo from './components/Leveltwo';
 import Levelthree from './components/Levelthree';
 import Levelfour from './components/Levelfour';
 import Levelfive from './components/Levelfive';
+import NotFoundPage from './components/NotFoundPage';
 import Leaderboard from './components/Leaderboard';
 import SecretCodePage from './components/SecretCodePage';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -114,7 +115,7 @@ function Layout() {
 
   return (
     <div>
-      {location.pathname !== '/timeup' && (location.pathname !== '/' && location.pathname !== '/rules' && location.pathname !== '/secret') && (
+      {location.pathname !== '/timeup' && (location.pathname !== '/' && location.pathname !== '/rules' && location.pathname !== '/home') && (
         <div className='space'>
           <div className='timer1'>
             <div className='row'>
@@ -266,6 +267,7 @@ function Layout() {
             />
           } 
         />
+           <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

@@ -19,7 +19,7 @@ const HomePage = () => {
       style={{ backgroundImage: `url(${harryPotterImg})` }} // Set background image
     >
        <div className="absolute left-[calc(50%+220px)] top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-      <img src="/SATARCLEFTIMAGE.png" alt="RIGHT Side" className="home-image animate__animated animate__fadeInTopRight" />
+      <img src="/first.jpg" alt="RIGHT Side" className="home-image animate__animated animate__fadeInTopRight" />
         <button
           onClick={handleClick}
           
