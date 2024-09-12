@@ -199,7 +199,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                <div className="input-wrapper animate__animated animate__fadeInUpBig">
                   {loading ? (
                     <div className="loading-indicator">
-                      <p>Loading... Go ahead! hold your breath!</p> {/* Display a loading message */}
+                      <p>Loading... Repati kosam!✊🏻</p> {/* Display a loading message */}
                     </div>
                   ) : (
                     <textarea
