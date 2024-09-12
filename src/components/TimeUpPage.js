@@ -22,7 +22,7 @@ function TimeUpPage() {
   }, []);
 
   const handleRedirectToSecret = () => {
-    navigate('/secret');
+    navigate('/');
   };
 
   const handlePopupOpen = () => {
