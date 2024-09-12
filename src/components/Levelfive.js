@@ -23,7 +23,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
   const totalLevels = 5;
-  const currentLevel = 4; // Set current level directly as a constant
+  const currentLevel = 5; // Set current level directly as a constant
 
   // Array of hash values
   const hashedPasswords = [
@@ -33,7 +33,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     '11c74a508ac67ea8d0a9df2fb7effe745dd7d314d4f49c220269eb6f22a71bca',
     '670dcefe3a7ab3fc90c0a491d1ce8548ccb396dac9811ad17614bef9ecd56778',
     '320b8ba6392db44d588dfdf9640948db5024785e30318e520635481cf878690a',
-    'c1fbc85d5e5e12d8012d5f64f0b721153f1fb180ceea34c96ee04b58688cea03'
+    'c1fbc85d5e5e12d8012d5f64f0b721153f1fb180ceea34c96ee04b58688cea03',
+    
   ];
 
   const handleSubmit = async (event) => {
@@ -54,7 +55,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       setResponse(data.response);
     } catch (error) {
       console.log('An error occurred');
-      setResponse('An error occurred');
+      setResponse('wrong prompt');
     } finally {
       setLoading(false);
     }
@@ -200,7 +201,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                <div className="input-wrapper animate__animated animate__fadeInUpBig">
                   {loading ? (
                     <div className="loading-indicator">
-                      <p>Loading...</p> {/* Display a loading message */}
+                      <p>Loading...Inkokka level eyy!!</p> {/* Display a loading message */}
                     </div>
                   ) : (
                     <textarea

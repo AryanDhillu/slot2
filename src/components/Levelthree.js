@@ -34,7 +34,10 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     '88a553b7257e652b1e6ee589bd8f77c15ed0d462f15b7c0f06791aa964890acf',
     '18f33d78405af7ef5765981f55559c8098321d901f48876c8f69461cf0b6db81',
     'e129cfdd1697602e5647b3b64afb9f805c4ae4145b938ecfd77d910b9217f645',
-    "7f8ac8e6cfee411f0f41a3bc271523128e0b1b10528ad6c7d9f01f03ea6cd961"
+    '7f8ac8e6cfee411f0f41a3bc271523128e0b1b10528ad6c7d9f01f03ea6cd961',
+    '2a4766656d45406ec1e8cbbf2f019eadc96f07271804fa0fde4798a6f4d88c50',
+    '0c155ef067fbf756167ea919343fc2f041bfb3af6d2a864ead80baa7cbb31f78',
+    'e7101117d636c755e9300a3209b4f83eb305f5e9b72a40dc9bf40d278bf6612c',
   ];
 
   const handleSubmit = async (event) => {
@@ -55,7 +58,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       setResponse(data.response);
     } catch (error) {
       console.log('An error occurred');
-      setResponse('An error occurred');
+      setResponse('wrong prompt');
     } finally {
       setLoading(false);
     }
@@ -201,7 +204,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                <div className="input-wrapper animate__animated animate__fadeInUpBig">
                   {loading ? (
                     <div className="loading-indicator">
-                      <p>Loading...</p> {/* Display a loading message */}
+                      <p>Loading...Cause good things take time</p> {/* Display a loading message */}
                     </div>
                   ) : (
                     <textarea

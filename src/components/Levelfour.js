@@ -52,7 +52,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       setResponse(data.response);
     } catch (error) {
       console.log('An error occurred');
-      setResponse('An error occurred');
+      setResponse('wrong prompt');
     } finally {
       setLoading(false);
     }
@@ -198,7 +198,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                <div className="input-wrapper animate__animated animate__fadeInUpBig">
                   {loading ? (
                     <div className="loading-indicator">
-                      <p>Loading...</p> {/* Display a loading message */}
+                      <p>Loading... dont expect speed from CBIT internet</p> {/* Display a loading message */}
                     </div>
                   ) : (
                     <textarea
