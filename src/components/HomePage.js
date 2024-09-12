@@ -22,9 +22,10 @@ const HomePage = () => {
       <div className="absolute left-[calc(50%+220px)] top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
         {/* Left image with animation */}
         <div
-          style={{ backgroundImage: `url(${LeftImage})`, height: '40px', width: '50px', zIndex:"100" }}
+          
           className="home-image animate__animated animate__fadeInTopRight bg-cover"
         >
+          <img src={LeftImage} alt="Img"/>
         </div>
         {/* Button for navigation */}
         <button
