@@ -80,7 +80,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleNextLevel = async () => {
-    const levelScore = currentLevel * 100 + time; // Example score calculation
+    const levelScore = currentLevel * 100 + (420 - time); // Example score calculation
     const newScore = score + levelScore;
   
     const timestampUTC = new Date().toISOString(); // Current time in UTC
