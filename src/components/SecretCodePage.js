@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/index.css';
-import np from './images/np.png';
-import bujji from './images/bujji1.png';
+// import np from './images/np.png';
+// import bujji from './images/bujji1.png';
 
 function SecretCodePage() {
   const [code, setCode] = useState('');
@@ -21,7 +21,7 @@ function SecretCodePage() {
 
   return (
     <div className="row2">
-      <img src={np} alt="np logo" />
+      {/* <img src={np} alt="np logo" /> */}
       <div className="secretcode-page">
         <div className="popup">
           <h2 className="animate__animated animate__fadeInRight">Enter Secret Code :</h2>
@@ -44,7 +44,7 @@ function SecretCodePage() {
           </form>
         </div>
       </div>
-      <img src={bujji} alt="bujji" />
+      {/* <img src={bujji} alt="bujji" /> */}
     </div>
   );
 }
