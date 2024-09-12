@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "animate.css";
 import { useNavigate } from 'react-router-dom';
 import './styles/Level1Page.css'; // Ensure this path is correct
-import Level1Img from './images/l5.jpg';
+import Level1Img from './images/l1.jpg';
 import Img from './images/img.png';
 import LeftImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
 import ParticlesComponent from '../components/ParticlesComponent'; 
@@ -26,7 +26,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const currentLevel = 5; // Set current level directly as a constant
 
   // Example hash (replace this with your actual hash)
-  const hashedPassword = 'ec28e6094c3c7d86adabcf28217b224084d9097d234852dee4b560b6ea79582b'; // Example SHA-256 hash
+  const hashedPassword = '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a'; // Example SHA-256 hash
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,7 +34,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     
     try {
       // Send the submitted answer to the backend
-      const res = await fetch('/api/generate-5/generate', {
+      const res = await fetch('http://localhost/generate_lvl1', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleNextLevel = async () => {
-    const levelScore = currentLevel * 100 + time; // Example score calculation
+    const levelScore = time; // Example score calculation
     const newScore = score + levelScore;
   
     const timestampUTC = new Date().toISOString(); // Current time in UTC
@@ -123,13 +123,13 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
             if (updateResponse.ok) {
               console.log('Data updated successfully:', data);
               setScore(newScore); // Update the score locally
-              navigate(`/leaderboard`); // Navigate to the next level
+              navigate(`/level${currentLevel + 1}`); // Navigate to the next level
             } else {
               console.error('Failed to update data:', updateResponse.statusText);
             }
           } else {
             // If the level does not match the required criteria, just navigate to the next level
-            navigate(`/leaderboard`);
+            navigate(`/level${currentLevel + 1}`);
           }
         } else {
           console.error('No existing data found for the given roll number.');
@@ -149,7 +149,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     }
   };
 
-  const progressPercentage = (currentLevel / totalLevels) * 90; // Adjust progress percentage calculation
+  const progressPercentage = (currentLevel / totalLevels) * 0; // Adjust progress percentage calculation
 
   return (
     <div className="level1-page">

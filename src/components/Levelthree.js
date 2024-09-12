@@ -80,16 +80,15 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleNextLevel = async () => {
-    const levelScore = (420 - time) * 100; // Example score calculation
-    const newScore = score + levelScore;
-  
+    const levelScore = time; // Time left for the current level
+    let newScore = score; // Start with the existing score
+    
     const timestampUTC = new Date().toISOString(); // Current time in UTC
     const data = {
       username,
       rollnum,
       timestamp: timestampUTC,
       timeLeft: time,
-      score: newScore,
       level: currentLevel, // Include the current level in the data
     };
   
@@ -105,9 +104,13 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       if (fetchResponse.ok) {
         const existingDataArray = await fetchResponse.json();
   
-        // Assuming that the rollnum is unique, so we'll take the first matching entry
+        // Assuming the rollnum is unique, take the first matching entry
         if (existingDataArray && existingDataArray.length > 0) {
           const existingData = existingDataArray[0];
+  
+          // Add the current time left to the existing score in the database
+          newScore = existingData.score + levelScore;
+          data.score = newScore; // Update score in the data to be sent
   
           // Check if the current level is 1 plus the level in existing data
           if (currentLevel === existingData.level + 1) {
@@ -141,6 +144,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       console.error('An error occurred while updating data:', error);
     }
   };
+  
     
 
   const handleKeyDown = (event) => {

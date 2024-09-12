@@ -92,7 +92,7 @@ const LoginPage = ({ startTimer, setUserInfo }) => {
   };
 
   const submitUserData = async () => {
-    const userData = { username: name, rollnum: rollNo, level: 0 };
+    const userData = { username: name, rollnum: rollNo, level: 0, timeLeft: 0, score: 0,};
     try {
       const response = await fetch('https://jsonserver-production-dc15.up.railway.app/records', {
         method: 'POST',
