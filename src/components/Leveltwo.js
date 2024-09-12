@@ -34,7 +34,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     
     try {
       // Send the submitted answer to the backend
-      const res = await fetch('/api/generate-2/generate', {
+      const res = await fetch('http://localhost/generate_lvl2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

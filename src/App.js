@@ -26,7 +26,7 @@ function App() {
 function Layout() {
   const [timeLeft, setTimeLeft] = useState(() => {
     const savedTimeLeft = localStorage.getItem('timeLeft');
-    return savedTimeLeft !== null ? parseInt(savedTimeLeft, 10) : 420; // Default to 7 minutes
+    return savedTimeLeft !== null ? parseInt(savedTimeLeft, 10) : 180; // Default to 7 minutes
   });
 
   const [timerRunning, setTimerRunning] = useState(() => {
