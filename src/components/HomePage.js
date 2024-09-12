@@ -24,7 +24,7 @@ const HomePage = () => {
         <div
 
          
-          className="home-image animate__animated animate__fadeInTopRight bg-cover"
+          className="animate__animated animate__fadeInTopRight bg-cover"
         >
           <img src={LeftImage} alt="LeftImage" />
 

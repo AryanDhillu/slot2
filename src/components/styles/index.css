@@ -25,7 +25,7 @@
 /* CSS file: index.css or a specific stylesheet */
 .size{
     height: 50vh;
-    width: 40vw;
+    width: 100%;
 }
 .secretcode-page .space,
 .secretcode-page .leaderboard-button {
@@ -227,4 +227,10 @@
 
 .popup-content button:hover {
     background: #286bbd;
+}
+.not-found{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
