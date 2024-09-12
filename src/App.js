@@ -6,15 +6,12 @@ import LoginPage from './components/loginpage';
 import Levelone from './components/Levelone';
 import Leveltwo from './components/Leveltwo';
 import Levelthree from './components/Levelthree';
-import Levelfour from './components/Levelfour';
-import Levelfive from './components/Levelfive';
+// import Levelfour from './components/Levelfour';
+// import Levelfive from './components/Levelfive';
 import Leaderboard from './components/Leaderboard';
-import SecretCodePage from './components/SecretCodePage';
-import ProtectedRoute from './components/ProtectedRoute';
+// import SecretCodePage from './components/SecretCodePage';
 import TimeUpPage from './components/TimeUpPage'; // Import the TimeUpPage component
 import { FaClock, FaTrophy } from 'react-icons/fa';
-
-
 
 import './components/styles/App.css';
 
@@ -82,8 +79,6 @@ function Layout() {
     localStorage.setItem('timerRunning', true);
   };
 
-
-
   const setUserInfo = (userName, userRollnum) => {
     setUsername(userName);
     setRollnum(userRollnum);
@@ -109,7 +104,7 @@ function Layout() {
   };
 
   if (timerEnded) {
-    return <TimeUpPage/>;
+    return <TimeUpPage />;
   }
 
   return (
@@ -142,129 +137,75 @@ function Layout() {
       )}
 
       <Routes>
-        <Route path="/" element={<SecretCodePage />} />
+        {/* <Route path="/secret" element={<SecretCodePage />} /> */}
         <Route 
           path="/login" 
           element={<LoginPage startTimer={startTimer} setUserInfo={setUserInfo} />} 
         />
-        <Route 
-          path="/home" 
-          element={
-            <ProtectedRoute 
-              element={<HomePage />} 
-            />
-          } 
-        />
-        <Route 
-          path="/rules" 
-          element={
-            <ProtectedRoute 
-              element={<RulesPage />} 
-            />
-          } 
-        />
+        <Route path="/" element={<HomePage />} /> {/* Regular Route for HomePage */}
+        <Route path="/rules" element={<RulesPage />} /> {/* Regular Route for RulesPage */}
         <Route 
           path="/level1" 
           element={
-            <ProtectedRoute 
-              element={
-                <Levelone 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
+            <Levelone 
+              username={username} 
+              rollnum={rollnum} 
+              timeLeft={timeLeft} 
+              score={score} 
+              setScore={setScore} 
             />
           } 
         />
         <Route 
           path="/level2" 
           element={
-            <ProtectedRoute 
-              element={
-                <Leveltwo 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
+            <Leveltwo 
+              username={username} 
+              rollnum={rollnum} 
+              timeLeft={timeLeft} 
+              score={score} 
+              setScore={setScore} 
             />
           } 
         />
         <Route 
           path="/level3" 
           element={
-            <ProtectedRoute 
-              element={
-                <Levelthree 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
+            <Levelthree 
+              username={username} 
+              rollnum={rollnum} 
+              timeLeft={timeLeft} 
+              score={score} 
+              setScore={setScore} 
             />
           } 
         />
-        <Route 
+        {/* <Route 
           path="/level4" 
           element={
-            <ProtectedRoute 
-              element={
-                <Levelfour 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
+            <Levelfour 
+              username={username} 
+              rollnum={rollnum} 
+              timeLeft={timeLeft} 
+              score={score} 
+              setScore={setScore} 
             />
           } 
         />
         <Route 
           path="/level5" 
           element={
-            <ProtectedRoute 
-              element={
-                <Levelfive 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
+            <Levelfive 
+              username={username} 
+              rollnum={rollnum} 
+              timeLeft={timeLeft} 
+              score={score} 
+              setScore={setScore} 
             />
           } 
-        />
-        <Route 
-          path="/leaderboard" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Leaderboard 
-                  username={username} 
-                  rollnum={rollnum} 
-                  score={score} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/timeup" 
-          element={
-            <TimeUpPage 
-              clearLocalStorage={clearLocalStorage} // Pass the clearLocalStorage function to TimeUpPage
-            />
-          } 
-        />
+        /> */}
+        <Route path="/leaderboard" element={<Leaderboard username={username} rollnum={rollnum} score={score} />} />
+        <Route path="/timeup" element={<TimeUpPage clearLocalStorage={clearLocalStorage} />} />
       </Routes>
     </div>
   );
