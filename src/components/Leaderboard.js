@@ -41,10 +41,13 @@ const Leaderboard = () => {
                   <span className="leaderboard-name">
                     {player.username}
                     {index === 0
-                      // <FontAwesomeIcon
-                      //   icon={faTrophy}
-                      //   className="trophy-icon"
-                      // />
+
+                    }
+                  </span>
+                  <span className="leaderboard-name">
+                    {player.rollnum}
+                    {index === 0
+                    
                     }
                   </span>
                   <span
