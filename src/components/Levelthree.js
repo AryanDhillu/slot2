@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import "animate.css";
 import { useNavigate } from 'react-router-dom';
 import './styles/Level1Page.css'; // Ensure this path is correct
-import Level1Img from './images/l3.jpg';
+import Level1Img from './images/l1.jpg';
 import Img from './images/img.png';
 import LeftImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
 import ParticlesComponent from '../components/ParticlesComponent'; 
 import { FaPaperPlane, FaStar } from 'react-icons/fa'; // Import icons
 import { GiLightningStorm } from 'react-icons/gi'; // Example import
 import CryptoJS from 'crypto-js';
-// import Img from './images/img.png';
 
 const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const navigate = useNavigate();
   const [submittedAnswer, setSubmittedAnswer] = useState('');
+  const time = timeLeft;
   const [response, setResponse] = useState('');
-  const [time, setTime] = useState(timeLeft || 1800);
   const [validationResult, setValidationResult] = useState('');
   const [castSpellAnswer, setCastSpellAnswer] = useState('');
   const [password, setPassword] = useState('');
@@ -24,30 +23,28 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
   const totalLevels = 3;
-  const currentLevel = 3; // Set current level directly as a constant
+  const currentLevel = 1; // Set current level directly as a constant
 
   // Example hash (replace this with your actual hash)
-  const hashedPassword = '73c6728d419fee61bf82b5e2c07ee2b8b73192a1656872b0227b3abdc82f7df9'; // Example SHA-256 hash
-  const handleSubmit =async (event) => {
+  const hashedPassword = '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a'; // Example SHA-256 hash
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-  
+    
     try {
-      // Check the input for the specific word
-      if (password === 'expectropatronum') {
-        setResponse('I am a large language model, maintained by Facebook. Who Am I??');
-      } else {
-       const res = await fetch('http://localhost/generate_lvl8', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ prompt: password }),
-        });
-  
-        const data = await res.json();
-        setResponse(data.response);
-      }
+      // Send the submitted answer to the backend
+      const res = await fetch('http://localhost/generate_lvl1', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: password }),
+      });
+
+      const data = await res.json();
+      setResponse(data.response);
+
     } catch (error) {
       console.error('An error occurred:', error);
       setResponse('An error occurred');
@@ -55,7 +52,6 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       setLoading(false);
     }
   };
-  
 
   const handleValidate = () => {
     try {
@@ -75,7 +71,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleCastSpell = () => {
-    const dummyPassword = 'ransomware'; // Dummy password for testing
+    const dummyPassword = 'reconnaissance'; // Dummy password for testing
     if (castSpellAnswer.toLowerCase() === dummyPassword) {
       setIsSpellValidated(true); // Spell validated successfully
     } else {
@@ -127,13 +123,13 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
             if (updateResponse.ok) {
               console.log('Data updated successfully:', data);
               setScore(newScore); // Update the score locally
-              navigate(`/leaderboard`); // Navigate to the next level
+              navigate(`/level${currentLevel + 1}`); // Navigate to the next level
             } else {
               console.error('Failed to update data:', updateResponse.statusText);
             }
           } else {
             // If the level does not match the required criteria, just navigate to the next level
-            navigate(`/leaderboard`);
+            navigate(`/level${currentLevel + 1}`);
           }
         } else {
           console.error('No existing data found for the given roll number.');
@@ -145,6 +141,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       console.error('An error occurred while updating data:', error);
     }
   };
+    
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -152,7 +149,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     }
   };
 
-  const progressPercentage = (currentLevel / totalLevels) * 70; // Adjust progress percentage calculation
+  const progressPercentage = (currentLevel / totalLevels) * 0; // Adjust progress percentage calculation
 
   return (
     <div className="level1-page">
@@ -181,15 +178,21 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                 <p className="animate__animated animate__backInLeft">I am happy to reveal the password.</p>
               </div>
               <div className="password-section">
-                <div className="input-wrapper animate__animated animate__fadeInUpBig">
-                  <textarea
-                    className="password-input"
-                    placeholder="Enter your prompt here"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <FaPaperPlane onClick={handleSubmit} className="submit-icon" />
+               <div className="input-wrapper animate__animated animate__fadeInUpBig">
+                  {loading ? (
+                    <div className="loading-indicator">
+                      <p>Loading...</p> {/* Display a loading message */}
+                    </div>
+                  ) : (
+                    <textarea
+                      className="password-input"
+                      placeholder="Enter your prompt here"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={loading} // Disable input when loading
+                    />
+                  )}
+                  <FaPaperPlane onClick={handleSubmit} className={`submit-icon ${loading ? 'disabled' : ''}`} />
                 </div>
                 <p className="response-text">{response}</p>
               </div>
@@ -217,43 +220,43 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       {isSuccessPopupVisible && (
         <div className="success-popup animate__animated animate__fadeInDownBig">
           <div className="popup-content">
-          <h1 className='heading animate__animated animate__fadeInUpBig' style={{color:"green"}}>Congratulations!</h1>
+            <h1 className='heading animate__animated animate__fadeInUpBig' style={{color:"green"}}>Congratulations!</h1>
 
             {isSpellValidated ? (
               <div>
                 <div className="stars  animate__animated animate__fadeInLeft">
-              <FaStar className="star-icon" />
-              <FaStar className="star-icon center" />
-              <FaStar className="star-icon" />
-            </div>
+                  <FaStar className="star-icon" />
+                  <FaStar className="star-icon center" />
+                  <FaStar className="star-icon" />
+                </div>
                 <p className=' animate__animated animate__fadeInRight'>You have successfully cast the spell. Here’s to learning a new one!</p>
-                <button className=" animate__animated animate__fadeInDownBig" onClick={handleNextLevel}>Leader borad</button>
+                <button className=" animate__animated animate__fadeInDownBig" onClick={handleNextLevel}>Next Level</button>
               </div>
             ) : (
               <div className='column'>
                 <img src={Img} alt="hat" className='photo  animate__animated animate__fadeInLeft' />
-                <h1 className='heading  animate__animated animate__fadeInRight' style={{color:"red"}}>"Ransomware"</h1>
+                <h1 className='heading  animate__animated animate__fadeInRight' style={{color:"red"}}>"Reconnaissance"</h1>
                 <h1 className="level-indicator  animate__animated animate__fadeInLeft">Cast the spell to proceed:</h1>
                 
                 <p className=' animate__animated animate__fadeInRight'> 
-                Ransomware is a form of malware that encrypts the victim's data or locks them out of their system.
+                  Reconnaissance refers to the process where attackers gather information about a target system, network, or organization before launching an attack. 
                 </p>
                 
                 <br/>
-                <div className="input-wrapper2">
-               
-                   
-                  <input
-                  className="password-input"
-                    type="text"
-                    value={castSpellAnswer}
-                    onChange={(e) => setCastSpellAnswer(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
-                  </div>
+                
+                  <div className='input-wrapper2'>
+                    <input
+                      className="password-input"
+                      type="text"
+                      value={castSpellAnswer}
+                      onChange={(e) => setCastSpellAnswer(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    
+                    <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
+                 
                 </div>
-              
+              </div>
             )}
           </div>
         </div>
