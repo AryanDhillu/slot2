@@ -5,7 +5,7 @@ import bujji from './images/bujji.png';
 import Leaderboard from './Leaderboard'; // Import the Leaderboard component
 import { FaTrophy } from 'react-icons/fa';
 
-function TimeUpPage() {
+function TimeUpPage({ username, rollnum }) { // Corrected the prop to username
   const navigate = useNavigate();
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [userScore, setUserScore] = useState(0);
@@ -13,14 +13,28 @@ function TimeUpPage() {
   useEffect(() => {
     // Reset the secret code in localStorage
     localStorage.setItem('secretCode', 'false');
-
-    // Retrieve the user's score from localStorage
-    const savedScore = localStorage.getItem('score');
-    if (savedScore !== null) {
-      setUserScore(parseInt(savedScore, 10));
-    }
-  }, []);
-
+  
+    // Fetch the user data by rollnum using query parameter
+    const fetchUserScore = async () => {
+      try {
+        const response = await fetch(`https://jsonserver-production-dc15.up.railway.app/records?rollnum=${rollnum}`);
+        const data = await response.json();
+  
+        // Since the response is an array, get the first entry that matches the rollnum
+        if (data.length > 0) {
+          const userData = data[0]; // Get the first (and only) match
+          setUserScore(userData.score); // Set the score
+        } else {
+          console.error('User not found');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserScore();
+  }, [rollnum]); // Re-run the effect if rollnum changes
+  
   const handleRedirectToSecret = () => {
     navigate('/');
   };
@@ -42,11 +56,11 @@ function TimeUpPage() {
       >
         <FaTrophy /> Show Leaderboard
       </button>
-      <h1 style={{ color: "red" }}>Alasyam Ayyindha Acharya Puthra</h1>
+      <h1 style={{ color: "red" }}>Aalasyam Ayyindhi Acharya Puthra</h1>
       <div className="row1">
         <img src={bujji} alt="img" className='size' />
         <div style={{ marginRight: "7vw" }}>
-          <h1>Bhairava !!!</h1>
+          <h1>{username} !!!</h1> {/* Display the username instead of Bhairava */}
           <h1 style={{ color: "white" }}>Bounty collected: {userScore} units</h1> {/* Display the user's score */}
         </div>
       </div>

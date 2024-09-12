@@ -34,7 +34,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     
     try {
       // Send the submitted answer to the backend
-      const res = await fetch('http://localhost/generate_lvl1', {
+      const res = await fetch('/api/generate-3/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       setResponse(data.response);
 
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.error('An error occurred');
       setResponse('An error occurred');
     } finally {
       setLoading(false);

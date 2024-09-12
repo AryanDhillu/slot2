@@ -4,7 +4,7 @@ import './home.css';
 import { useNavigate } from 'react-router-dom';
 import './styles/App.css';
 import harryPotterImg from './images/Harry.png';
-import LeftImage from './images/first.jpg';
+import LeftImage from './images/first.png';
 
 const HomePage = () => {
   const navigate = useNavigate(); // Using useNavigate hook
@@ -22,10 +22,12 @@ const HomePage = () => {
       <div className="absolute left-[calc(50%+220px)] top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
         {/* Left image with animation */}
         <div
+
          
           className="home-image animate__animated animate__fadeInTopRight bg-cover"
         >
           <img src={LeftImage} alt="LeftImage" />
+
         </div>
         {/* Button for navigation */}
         <button
