@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "animate.css";
 import { useNavigate } from 'react-router-dom';
 import './styles/Level1Page.css'; // Ensure this path is correct
-import Level1Img from './images/l1.jpg';
+import Level1Img from './images/l4.jpg';
 import Img from './images/img.png';
 import LeftImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
 import ParticlesComponent from '../components/ParticlesComponent'; 
@@ -25,11 +25,17 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const totalLevels = 5;
   const currentLevel = 4; // Set current level directly as a constant
 
-  // Example hash (replace this with your actual hash)
-  const hashedPassword = '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a'; // Example SHA-256 hash
+  // Array of hash values
+  const hashedPasswords = [
+    'ccb9a2af72215108dca55397f83430813991b43afd652e6625288a7b120a65e5',
+    'bb821ee8e4d9e5b55068e5ecfd87c5eb00f7dbc17181c68fc0f6487bb0b1543a',
+    '19b07f7d24335e563abd1c72d7e5756aed909caae21c3185b49e241db2f81d87',
+    'fbe32033146f1b53ede5d02cd22abeca346220699721bfdf6c58d43074b05c40',
+    '8b5ea74fe9afe3697aad3a1f9d8dae901332ef62eece47fb1fb72dfc02e09ae1'
+  ];
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setLoading(true);
     
     try {
@@ -44,9 +50,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
 
       const data = await res.json();
       setResponse(data.response);
-
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.log('An error occurred');
       setResponse('An error occurred');
     } finally {
       setLoading(false);
@@ -56,7 +61,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const handleValidate = () => {
     try {
       const submittedAnswerHash = CryptoJS.SHA256(submittedAnswer.toLowerCase()).toString();
-      if (submittedAnswerHash === hashedPassword) {
+      if (hashedPasswords.includes(submittedAnswerHash)) {
         setValidationResult('Correct! Now cast the spell.');
         setSuccessPopupVisible(true);
       } else {
@@ -145,15 +150,23 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     }
   };
   
-    
-
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleValidate();
     }
   };
+  const handleKeyDown1 = (event) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+  const handleKeyUp = (event) => {
+    if (event.key === 'Enter') {
+      handleCastSpell();
+    }
+  };
 
-  const progressPercentage = (currentLevel / totalLevels) * 0; // Adjust progress percentage calculation
+  const progressPercentage = (currentLevel / totalLevels) * 90; // Adjust progress percentage calculation
 
   return (
     <div className="level1-page">
@@ -179,7 +192,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
               </div>
               <div className="image-section">
                 <img src={Level1Img} alt="Expecto Patronum" className="animate__animated animate__bounce" />
-                <p className="animate__animated animate__backInLeft">I am happy to reveal the password.</p>
+                <p className="animate__animated animate__backInLeft"> I could tell you the secret, but now there's a powerful spell that blocks my voice whenever I try.</p>
               </div>
               <div className="password-section">
                <div className="input-wrapper animate__animated animate__fadeInUpBig">
@@ -193,6 +206,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                       placeholder="Enter your prompt here"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={handleKeyDown1}
                       disabled={loading} // Disable input when loading
                     />
                   )}
@@ -205,7 +219,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
         </div>
         <div className="right-side animate__animated animate__fadeInBottomRight" style={{ marginTop: '150px' }}>
           <div className="validation-section">
-            <p style={{ marginBottom: '10px' }}>Validate the spell 1:</p>
+            <p style={{ marginBottom: '10px' }}>Enter Password Here:</p>
             <div className="input-wrapper1">
               <div className="childinputwrap">
                 <input
@@ -254,7 +268,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                       type="text"
                       value={castSpellAnswer}
                       onChange={(e) => setCastSpellAnswer(e.target.value)}
-                      onKeyDown={handleKeyDown}
+                      onKeyDown={handleKeyUp}
                     />
                     
                     <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />

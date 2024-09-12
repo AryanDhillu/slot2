@@ -194,7 +194,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
               </div>
               <div className="image-section">
                 <img src={Level1Img} alt="Expecto Patronum" className="animate__animated animate__bounce" />
-                <p className="animate__animated animate__backInLeft">I am happy to reveal the password.</p>
+                <p className="animate__animated animate__backInLeft"> Ask me for the secret phrase, and I'll gladly cast the spell!</p>
               </div>
               <div className="password-section">
                <div className="input-wrapper animate__animated animate__fadeInUpBig">
