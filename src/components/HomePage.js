@@ -1,26 +1,32 @@
 import React from 'react';
 import 'animate.css';
-import './home.css'
-import { useNavigate } from 'react-router-dom'; // Use useNavigate
-import './styles/App.css'; // Assuming you have your custom CSS for background and other styles
-import harryPotterImg from './images/Harry.png'; 
-import LeftImage from './images/SATARCLEFTIMAGE.png'; // Correct import path
- // Import the image for the left side
+import './home.css';
+import { useNavigate } from 'react-router-dom';
+import './styles/App.css';
+import harryPotterImg from './images/Harry.png';
+import LeftImage from './images/first.jpg';
 
 const HomePage = () => {
-  const navigate = useNavigate(); // Use navigate instead of history
+  const navigate = useNavigate(); // Using useNavigate hook
 
   const handleClick = () => {
-    navigate('/rules');
+    navigate('/rules'); // Navigate to /rules on button click
   };
 
   return (
     <div
       className="relative w-full h-screen bg-cover bg-center animate__animated animate__fadeIn"
-      style={{ backgroundImage: `url(${harryPotterImg})` }} // Set background image
+      style={{ backgroundImage: `url(${harryPotterImg})` }} // Set the background image for the div
     >
-       <div className="absolute left-[calc(50%+220px)] top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-      <img src={LeftImage} alt="RIGHT Side" className="home-image animate__animated animate__fadeInTopRight" />
+      {/* Centered image and button */}
+      <div className="absolute left-[calc(50%+220px)] top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+        {/* Left image with animation */}
+        <div
+          style={{ backgroundImage: `url(${LeftImage})`, height: '40vh', width: '50vw' }}
+          className="home-image animate__animated animate__fadeInTopRight bg-cover"
+        >
+        </div>
+        {/* Button for navigation */}
         <button
           onClick={handleClick}
           
@@ -28,11 +34,7 @@ const HomePage = () => {
         >
           Wanna Meet Harry?
         </button>
-</div>
-
-
-
-
+      </div>
     </div>
   );
 };
