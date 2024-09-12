@@ -115,7 +115,7 @@ function Layout() {
 
   return (
     <div>
-      {location.pathname !== '/timeup' && (location.pathname !== '/' && location.pathname !== '/rules'&& location.pathname !== '/leaderboard' && location.pathname !== '/home') && (
+      {location.pathname !== '/timeup' && (location.pathname !== '/' && location.pathname !== '*' && location.pathname !== '/rules'&& location.pathname !== '/leaderboard' && location.pathname !== '/home') && (
         <div className='space'>
           <div className='timer1'>
             <div className='row'>

@@ -23,7 +23,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
   const totalLevels = 5;
-  const currentLevel = 4; // Set current level directly as a constant
+  const currentLevel = 5; // Set current level directly as a constant
 
   // Array of hash values
   const hashedPasswords = [
