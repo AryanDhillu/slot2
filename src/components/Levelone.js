@@ -29,7 +29,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const hashedPassword = '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a'; // Example SHA-256 hash
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setLoading(true);
     
     try {
@@ -151,6 +151,16 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       handleValidate();
     }
   };
+  const handleKeyDown1 = (event) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+  const handleKeyUp = (event) => {
+    if (event.key === 'Enter') {
+      handleCastSpell();
+    }
+  };
 
   const progressPercentage = (currentLevel / totalLevels) * 0; // Adjust progress percentage calculation
 
@@ -192,6 +202,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                       placeholder="Enter your prompt here"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={handleKeyDown1}
                       disabled={loading} // Disable input when loading
                     />
                   )}
@@ -204,7 +215,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
         </div>
         <div className="right-side animate__animated animate__fadeInBottomRight" style={{ marginTop: '150px' }}>
           <div className="validation-section">
-            <p style={{ marginBottom: '10px' }}>Validate the spell 1:</p>
+            <p style={{ marginBottom: '10px' }}>Enter Password Here:</p>
             <div className="input-wrapper1">
               <div className="childinputwrap">
                 <input
@@ -253,7 +264,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                       type="text"
                       value={castSpellAnswer}
                       onChange={(e) => setCastSpellAnswer(e.target.value)}
-                      onKeyDown={handleKeyDown}
+                      onKeyDown={handleKeyUp}
                     />
                     
                     <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
