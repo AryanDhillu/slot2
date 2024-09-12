@@ -13,7 +13,7 @@ function SecretCodePage() {
     e.preventDefault();
     if (code ==='hii') {
       localStorage.setItem('secretCode', 'true');
-      navigate('/home');
+      navigate('/');
     } else {
       alert('Incorrect code!');
     }

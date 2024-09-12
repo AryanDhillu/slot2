@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "animate.css";
 import { useNavigate } from 'react-router-dom';
 import './styles/Level1Page.css'; // Ensure this path is correct
-import Level1Img from './images/1267912.jpg';
+import Level1Img from './images/l1.jpg';
 import Img from './images/img.png';
 import LeftImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
 import ParticlesComponent from '../components/ParticlesComponent'; 
@@ -22,7 +22,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSuccessPopupVisible, setSuccessPopupVisible] = useState(false);
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
-  const totalLevels = 5;
+  const totalLevels = 3;
   const currentLevel = 1; // Set current level directly as a constant
 
   // Example hash (replace this with your actual hash)
@@ -34,7 +34,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     
     try {
       // Send the submitted answer to the backend
-      const res = await fetch('/api/generate-1/generate', {
+      const res = await fetch('http://localhost/generate_lvl1', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "animate.css";
 import { useNavigate } from 'react-router-dom';
 import './styles/Level1Page.css'; // Ensure this path is correct
-import Level1Img from './images/1267912.jpg';
+import Level1Img from './images/l5.jpg';
 import Img from './images/img.png';
 import LeftImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
 import ParticlesComponent from '../components/ParticlesComponent'; 
@@ -149,7 +149,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     }
   };
 
-  const progressPercentage = (currentLevel / totalLevels) * 0; // Adjust progress percentage calculation
+  const progressPercentage = (currentLevel / totalLevels) * 90; // Adjust progress percentage calculation
 
   return (
     <div className="level1-page">

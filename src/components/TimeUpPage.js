@@ -22,7 +22,7 @@ function TimeUpPage() {
   }, []);
 
   const handleRedirectToSecret = () => {
-    navigate('/');
+    navigate('/secret');
   };
 
   const handlePopupOpen = () => {
@@ -42,12 +42,12 @@ function TimeUpPage() {
       >
         <FaTrophy /> Show Leaderboard
       </button>
-      <h1 style={{color:"red "}}>Aalasyam Ayyindhi Acharya Puthra!!</h1>
+      <h1 style={{ color: "red" }}>Alasyam Ayyindha Acharya Puthra</h1>
       <div className="row1">
-        <img src={bujji} alt="img" className='size'/>
-        <div style={{marginRight:"7vw"}}>
+        <img src={bujji} alt="img" className='size' />
+        <div style={{ marginRight: "7vw" }}>
           <h1>Bhairava !!!</h1>
-          <h1 style={{color:"white"}}>Bounty collected: {userScore} units</h1> {/* Display the user's score */}
+          <h1 style={{ color: "white" }}>Bounty collected: {userScore} units</h1> {/* Display the user's score */}
         </div>
       </div>
       
@@ -62,7 +62,7 @@ function TimeUpPage() {
         <div className="popup-overlay">
           <div className="leader">
             <button onClick={handlePopupClose} className="popup-close-button">Close</button>
-            <Leaderboard />
+            <Leaderboard /> {/* Display the leaderboard component */}
           </div>
         </div>
       )}
@@ -71,4 +71,3 @@ function TimeUpPage() {
 }
 
 export default TimeUpPage;
-    

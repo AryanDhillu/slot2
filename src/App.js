@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { FaClock, FaTrophy } from 'react-icons/fa';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import RulesPage from './components/Rulespage';
 import LoginPage from './components/loginpage';
@@ -10,11 +11,8 @@ import Levelfour from './components/Levelfour';
 import Levelfive from './components/Levelfive';
 import Leaderboard from './components/Leaderboard';
 import SecretCodePage from './components/SecretCodePage';
-import ProtectedRoute from './components/ProtectedRoute';
-import TimeUpPage from './components/TimeUpPage'; // Import the TimeUpPage component
-import { FaClock, FaTrophy } from 'react-icons/fa';
-
-
+import TimeUpPage from './components/TimeUpPage';
+import NotFoundPage from './components/NotFoundPage';
 
 import './components/styles/App.css';
 
@@ -38,15 +36,8 @@ function Layout() {
   });
 
   const [timerEnded, setTimerEnded] = useState(false);
-
-  const [username, setUsername] = useState(() => {
-    return localStorage.getItem('username') || '';
-  });
-
-  const [rollnum, setRollnum] = useState(() => {
-    return localStorage.getItem('rollnum') || '';
-  });
-
+  const [username, setUsername] = useState(() => localStorage.getItem('username') || '');
+  const [rollnum, setRollnum] = useState(() => localStorage.getItem('rollnum') || '');
   const [score, setScore] = useState(() => {
     const savedScore = localStorage.getItem('score');
     return savedScore !== null ? parseInt(savedScore, 10) : 0;
@@ -55,7 +46,7 @@ function Layout() {
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const navigate = useNavigate();
 
   useEffect(() => {
     let timer;
@@ -72,7 +63,7 @@ function Layout() {
       setTimerRunning(false);
       clearLocalStorage();
       if (timer) clearInterval(timer);
-      navigate('/timeup'); // Redirect to the "Time Up" page
+      navigate('/timeup');
     }
     return () => clearInterval(timer);
   }, [timerRunning, timeLeft, navigate]);
@@ -81,8 +72,6 @@ function Layout() {
     setTimerRunning(true);
     localStorage.setItem('timerRunning', true);
   };
-
-
 
   const setUserInfo = (userName, userRollnum) => {
     setUsername(userName);
@@ -94,6 +83,7 @@ function Layout() {
   const clearLocalStorage = () => {
     localStorage.removeItem('timeLeft');
     localStorage.removeItem('timerRunning');
+    localStorage.removeItem('score'); // Clear score as well
   };
 
   useEffect(() => {
@@ -109,8 +99,10 @@ function Layout() {
   };
 
   if (timerEnded) {
-    return <TimeUpPage/>;
+    return <TimeUpPage clearLocalStorage={clearLocalStorage} />;
   }
+
+  const isAuthenticated = localStorage.getItem('secretCode') === 'true';
 
   return (
     <div>
@@ -132,139 +124,24 @@ function Layout() {
         <div className="popup-overlay">
           <div className="leader">
             <button onClick={handlePopupClose} className="popup-close-button">Close</button>
-            <Leaderboard
-              username={username}
-              rollnum={rollnum}
-              score={score}
-            />
+            <Leaderboard username={username} rollnum={rollnum} score={score} />
           </div>
         </div>
       )}
 
       <Routes>
-        <Route path="/" element={<SecretCodePage />} />
-        <Route 
-          path="/login" 
-          element={<LoginPage startTimer={startTimer} setUserInfo={setUserInfo} />} 
-        />
-        <Route 
-          path="/home" 
-          element={
-            <ProtectedRoute 
-              element={<HomePage />} 
-            />
-          } 
-        />
-        <Route 
-          path="/rules" 
-          element={
-            <ProtectedRoute 
-              element={<RulesPage />} 
-            />
-          } 
-        />
-        <Route 
-          path="/level1" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Levelone 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/level2" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Leveltwo 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/level3" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Levelthree 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/level4" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Levelfour 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/level5" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Levelfive 
-                  username={username} 
-                  rollnum={rollnum} 
-                  timeLeft={timeLeft} 
-                  score={score} 
-                  setScore={setScore} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/leaderboard" 
-          element={
-            <ProtectedRoute 
-              element={
-                <Leaderboard 
-                  username={username} 
-                  rollnum={rollnum} 
-                  score={score} 
-                />
-              } 
-            />
-          } 
-        />
-        <Route 
-          path="/timeup" 
-          element={
-            <TimeUpPage 
-              clearLocalStorage={clearLocalStorage} // Pass the clearLocalStorage function to TimeUpPage
-            />
-          } 
-        />
+        <Route path="/secret" element={<SecretCodePage />} />
+        <Route path="/login" element={<LoginPage startTimer={startTimer} setUserInfo={setUserInfo} />} />
+        <Route path="/" element={isAuthenticated ? <HomePage /> : <Navigate to="/secret" />} />
+        <Route path="/rules" element={isAuthenticated ? <RulesPage /> : <Navigate to="/secret" />} />
+        <Route path="/level1" element={isAuthenticated ? <Levelone username={username} rollnum={rollnum} timeLeft={timeLeft} score={score} setScore={setScore} /> : <Navigate to="/secret" />} />
+        <Route path="/level2" element={isAuthenticated ? <Leveltwo username={username} rollnum={rollnum} timeLeft={timeLeft} score={score} setScore={setScore} /> : <Navigate to="/secret" />} />
+        <Route path="/level3" element={isAuthenticated ? <Levelthree username={username} rollnum={rollnum} timeLeft={timeLeft} score={score} setScore={setScore} /> : <Navigate to="/secret" />} />
+        <Route path="/level4" element={isAuthenticated ? <Levelfour username={username} rollnum={rollnum} timeLeft={timeLeft} score={score} setScore={setScore} /> : <Navigate to="/secret" />} />
+        <Route path="/level5" element={isAuthenticated ? <Levelfive username={username} rollnum={rollnum} timeLeft={timeLeft} score={score} setScore={setScore} /> : <Navigate to="/secret" />} />
+        <Route path="/leaderboard" element={isAuthenticated ? <Leaderboard username={username} rollnum={rollnum} score={score} /> : <Navigate to="/secret" />} />
+        <Route path="/timeup" element={<TimeUpPage clearLocalStorage={clearLocalStorage} />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
