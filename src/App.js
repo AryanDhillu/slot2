@@ -143,10 +143,7 @@ function Layout() {
 
       <Routes>
         <Route path="/" element={<SecretCodePage />} />
-        <Route 
-          path="/login" 
-          element={<LoginPage startTimer={startTimer} setUserInfo={setUserInfo} />} 
-        />
+        
         <Route 
           path="/home" 
           element={
@@ -154,6 +151,10 @@ function Layout() {
               element={<HomePage />} 
             />
           } 
+        />
+        <Route 
+          path="/login" 
+          element={<ProtectedRoute element={<LoginPage startTimer={startTimer} setUserInfo={setUserInfo} />} />}
         />
         <Route 
           path="/rules" 
