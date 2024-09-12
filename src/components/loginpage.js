@@ -14,19 +14,21 @@ const LoginPage = ({ startTimer, setUserInfo }) => {
   const navigate = useNavigate(); // Use navigate instead of history
 
   const validateName = (name) => {
-    const namePattern = /^[A-Za-z]{3,}$/; // Regex pattern for name: at least 3 letters, no special characters
+    const namePattern = /^[A-Za-z\s]{3,}$/; // Regex pattern for name: at least 3 letters, allows spaces, but no special characters
     if (!namePattern.test(name)) {
-      return "Name must be at least 3 letters long and contain only alphabets.";
+      return "Name must be at least 3 characters long, can include spaces, and contain only alphabets.";
     }
     return "";
   };
 
   const validateRollNo = (rollNo) => {
-    const rollNoPattern = /^1601\d{8}$/; // Regex pattern for rollNo: must start with 1601 and have 8 more digits
-    if (rollNo.length !== 12) {
-      return "Roll No must be exactly 12 digits long.";
-    } else if (!rollNoPattern.test(rollNo)) {
-      return "Roll No must start with '1601' and contain only digits.";
+    const rollNoPatterns = [
+      /^1601\d{8}$/,  // Pattern for roll numbers starting with 1601 and followed by 8 digits
+      /^\d{7,12}$/   // Pattern for roll numbers of 7 to 12 digits
+    ];
+
+    if (!rollNoPatterns.some(pattern => pattern.test(rollNo))) {
+      return "Roll No must match one of the valid formats: 1601 followed by 8 digits or 7 to 12 digits.";
     }
     return "";
   };

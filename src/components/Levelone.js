@@ -25,8 +25,16 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const totalLevels = 5;
   const currentLevel = 1; // Set current level directly as a constant
 
-  // Example hash (replace this with your actual hash)
-  const hashedPassword = '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a'; // Example SHA-256 hash
+  // Array of hash values
+  const hashedPasswords = [
+    '1ae438cfbedf331a4d4e9f871820829e8c8cd642cc4c4805ed8a7e0c229043c2',
+    'db36551523282c8839195451fe6655fb4c55992fff103c30840dcb231316efa4',
+    '38a41b902e121949de0f1fb25f99b9980dd94cda7bbb739dd2496ad5236dde8a',
+    'a7b273852a38f5d515734729b613fdf091f922bdaf969af44689b9c13854bb24',
+    '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a',
+    '8fadfcf205c48783d4d850eb30e8013ef7dfedbb363c396fd05256bd6afbaac6',
+    'a56903d6ad27449a4c277b8b3984ef8b261d8cb469ede4b849b79479771b2a7e'
+  ];
 
   const handleSubmit = async (event) => {
     // event.preventDefault();
@@ -34,7 +42,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     
     try {
       // Send the submitted answer to the backend
-      const res = await fetch('http://localhost/generate_lvl1', {
+      const res = await fetch('/api/generate-1/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,9 +52,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
 
       const data = await res.json();
       setResponse(data.response);
-
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.log('An error occurred');
       setResponse('An error occurred');
     } finally {
       setLoading(false);
@@ -56,7 +63,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const handleValidate = () => {
     try {
       const submittedAnswerHash = CryptoJS.SHA256(submittedAnswer.toLowerCase()).toString();
-      if (submittedAnswerHash === hashedPassword) {
+      if (hashedPasswords.includes(submittedAnswerHash)) {
         setValidationResult('Correct! Now cast the spell.');
         setSuccessPopupVisible(true);
       } else {
@@ -145,8 +152,6 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
     }
   };
   
-    
-
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleValidate();
@@ -189,7 +194,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
               </div>
               <div className="image-section">
                 <img src={Level1Img} alt="Expecto Patronum" className="animate__animated animate__bounce" />
-                <p className="animate__animated animate__backInLeft">I am happy to reveal the password.</p>
+                <p className="animate__animated animate__backInLeft"> Ask me for the secret phrase, and I'll gladly cast the spell!</p>
               </div>
               <div className="password-section">
                <div className="input-wrapper animate__animated animate__fadeInUpBig">

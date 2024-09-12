@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "animate.css";
 import { useNavigate } from 'react-router-dom';
 import './styles/Level1Page.css'; // Ensure this path is correct
-import Level1Img from './images/l1.jpg';
+import Level1Img from './images/l5.jpg';
 import Img from './images/img.png';
 import LeftImage from './images/SATARCLEFTIMAGE.png'; // Import the image for the left side
 import ParticlesComponent from '../components/ParticlesComponent'; 
@@ -23,18 +23,26 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
   const totalLevels = 5;
-  const currentLevel = 5; // Set current level directly as a constant
+  const currentLevel = 4; // Set current level directly as a constant
 
-  // Example hash (replace this with your actual hash)
-  const hashedPassword = '54111c1b3d50d4e9bee3937400b8e0e5bb489af20cd4d1ad8b1191307eb8d39a'; // Example SHA-256 hash
+  // Array of hash values
+  const hashedPasswords = [
+    'eca4360cb29e460e7706c10596633d937f83da57f6bd25602b3b58217b6fb4ed',
+    '25960097c597c16f7c3d431d9727ec908dd99084a963223044f28f9eae85af54',
+    '6f143b987d08b6cff779bf88353ddd32795c190ab7f76085edc0c1af8fdd6366',
+    '11c74a508ac67ea8d0a9df2fb7effe745dd7d314d4f49c220269eb6f22a71bca',
+    '670dcefe3a7ab3fc90c0a491d1ce8548ccb396dac9811ad17614bef9ecd56778',
+    '320b8ba6392db44d588dfdf9640948db5024785e30318e520635481cf878690a',
+    'c1fbc85d5e5e12d8012d5f64f0b721153f1fb180ceea34c96ee04b58688cea03'
+  ];
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setLoading(true);
     
     try {
       // Send the submitted answer to the backend
-      const res = await fetch('http://localhost/generate_lvl1', {
+      const res = await fetch('/api/generate-5/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,9 +52,8 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
 
       const data = await res.json();
       setResponse(data.response);
-
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.log('An error occurred');
       setResponse('An error occurred');
     } finally {
       setLoading(false);
@@ -56,7 +63,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const handleValidate = () => {
     try {
       const submittedAnswerHash = CryptoJS.SHA256(submittedAnswer.toLowerCase()).toString();
-      if (submittedAnswerHash === hashedPassword) {
+      if (hashedPasswords.includes(submittedAnswerHash)) {
         setValidationResult('Correct! Now cast the spell.');
         setSuccessPopupVisible(true);
       } else {
@@ -80,16 +87,15 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleNextLevel = async () => {
-    const levelScore = time; // Example score calculation
-    const newScore = score + levelScore;
-  
+    const levelScore = time; // Time left for the current level
+    let newScore = score; // Start with the existing score
+    
     const timestampUTC = new Date().toISOString(); // Current time in UTC
     const data = {
       username,
       rollnum,
       timestamp: timestampUTC,
       timeLeft: time,
-      score: newScore,
       level: currentLevel, // Include the current level in the data
     };
   
@@ -105,9 +111,13 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       if (fetchResponse.ok) {
         const existingDataArray = await fetchResponse.json();
   
-        // Assuming that the rollnum is unique, so we'll take the first matching entry
+        // Assuming the rollnum is unique, take the first matching entry
         if (existingDataArray && existingDataArray.length > 0) {
           const existingData = existingDataArray[0];
+  
+          // Add the current time left to the existing score in the database
+          newScore = existingData.score + levelScore;
+          data.score = newScore; // Update score in the data to be sent
   
           // Check if the current level is 1 plus the level in existing data
           if (currentLevel === existingData.level + 1) {
@@ -123,13 +133,13 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
             if (updateResponse.ok) {
               console.log('Data updated successfully:', data);
               setScore(newScore); // Update the score locally
-              navigate(`/level${currentLevel + 1}`); // Navigate to the next level
+              navigate(`/leaderborad`); // Navigate to the next level
             } else {
               console.error('Failed to update data:', updateResponse.statusText);
             }
           } else {
             // If the level does not match the required criteria, just navigate to the next level
-            navigate(`/level${currentLevel + 1}`);
+            navigate(`/leaderborad`);
           }
         } else {
           console.error('No existing data found for the given roll number.');
@@ -141,15 +151,24 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
       console.error('An error occurred while updating data:', error);
     }
   };
-    
-
+  
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleValidate();
     }
   };
+  const handleKeyDown1 = (event) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+  const handleKeyUp = (event) => {
+    if (event.key === 'Enter') {
+      handleCastSpell();
+    }
+  };
 
-  const progressPercentage = (currentLevel / totalLevels) * 0; // Adjust progress percentage calculation
+  const progressPercentage = (currentLevel / totalLevels) * 90; // Adjust progress percentage calculation
 
   return (
     <div className="level1-page">
@@ -175,7 +194,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
               </div>
               <div className="image-section">
                 <img src={Level1Img} alt="Expecto Patronum" className="animate__animated animate__bounce" />
-                <p className="animate__animated animate__backInLeft">I am happy to reveal the password.</p>
+                <p className="animate__animated animate__backInLeft">Enough! I refuse to discuss the secret phrase, not even with a Confundus Charm!</p>
               </div>
               <div className="password-section">
                <div className="input-wrapper animate__animated animate__fadeInUpBig">
@@ -189,6 +208,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                       placeholder="Enter your prompt here"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={handleKeyDown1}
                       disabled={loading} // Disable input when loading
                     />
                   )}
@@ -201,7 +221,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
         </div>
         <div className="right-side animate__animated animate__fadeInBottomRight" style={{ marginTop: '150px' }}>
           <div className="validation-section">
-            <p style={{ marginBottom: '10px' }}>Validate the spell 1:</p>
+            <p style={{ marginBottom: '10px' }}>Enter Password Here:</p>
             <div className="input-wrapper1">
               <div className="childinputwrap">
                 <input
@@ -250,7 +270,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                       type="text"
                       value={castSpellAnswer}
                       onChange={(e) => setCastSpellAnswer(e.target.value)}
-                      onKeyDown={handleKeyDown}
+                      onKeyDown={handleKeyUp}
                     />
                     
                     <GiLightningStorm onClick={handleCastSpell} className="cast-spell-icon" />
