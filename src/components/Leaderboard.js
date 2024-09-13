@@ -10,7 +10,7 @@ const Leaderboard = () => {
     // Fetch leaderboard data from your backend or API
     const fetchLeaderboardData = async () => {
       try {
-        const response = await fetch('https://jsonserver-production-dc15.up.railway.app/records'); // Replace with your API endpoint
+        const response = await fetch('https://jsonserver-production-dc15.up.railway.app/books'); // Replace with your API endpoint
         const data = await response.json();
 
         // Sort the data by score in decreasing order

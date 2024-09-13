@@ -17,7 +17,7 @@ function TimeUpPage({ username, rollnum }) { // Corrected the prop to username
     // Fetch the user data by rollnum using query parameter
     const fetchUserScore = async () => {
       try {
-        const response = await fetch(`https://jsonserver-production-dc15.up.railway.app/records?rollnum=${rollnum}`);
+        const response = await fetch(`https://jsonserver-production-dc15.up.railway.app/books?rollnum=${rollnum}`);
         const data = await response.json();
   
         // Since the response is an array, get the first entry that matches the rollnum
