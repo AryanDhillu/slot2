@@ -22,19 +22,12 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSuccessPopupVisible, setSuccessPopupVisible] = useState(false);
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
-  const totalLevels = 5;
-  const currentLevel = 5; // Set current level directly as a constant
+  const totalLevels = 3;
+  const currentLevel = 3; // Set current level directly as a constant
 
   // Array of hash values
   const hashedPasswords = [
-    'eca4360cb29e460e7706c10596633d937f83da57f6bd25602b3b58217b6fb4ed',
-    '25960097c597c16f7c3d431d9727ec908dd99084a963223044f28f9eae85af54',
-    '6f143b987d08b6cff779bf88353ddd32795c190ab7f76085edc0c1af8fdd6366',
-    '11c74a508ac67ea8d0a9df2fb7effe745dd7d314d4f49c220269eb6f22a71bca',
-    '670dcefe3a7ab3fc90c0a491d1ce8548ccb396dac9811ad17614bef9ecd56778',
-    '320b8ba6392db44d588dfdf9640948db5024785e30318e520635481cf878690a',
-    'c1fbc85d5e5e12d8012d5f64f0b721153f1fb180ceea34c96ee04b58688cea03',
-    
+    'a8ba36f9599ac5e63787afd21519beb2cad29ea264c086da273d264c403fc8ee'
   ];
 
   const handleSubmit = async (event) => {

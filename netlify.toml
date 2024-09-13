@@ -4,13 +4,13 @@
 
 [[redirects]]
   from = "/api/generate-1/*"  # Proxy path for the first backend URL
-  to = "http://4.207.94.103/:splat"
+  to = "http://52.186.89.123/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/api/generate-2/*"  # Proxy path for the second backend URL
-  to = "http://51.136.79.40/:splat"
+  to = "http://20.252.54.98/:splat"
   status = 200
   force = true
 
@@ -28,7 +28,7 @@
 
 [[redirects]]
   from = "/api/generate-5/*"  # Proxy path for the fifth backend URL
-  to = "http://20.239.236.201/:splat"
+  to = "http://20.14.67.86/:splat"
   status = 200
   force = true
 

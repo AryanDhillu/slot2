@@ -22,17 +22,12 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   const [isSuccessPopupVisible, setSuccessPopupVisible] = useState(false);
   const [isSpellValidated, setIsSpellValidated] = useState(false);
   const [score, setScore] = useState(initialScore || 0);
-  const totalLevels = 5;
+  const totalLevels = 3;
   const currentLevel = 2; // Set current level directly as a constant
 
   // Array of hash values
   const hashedPasswords = [
-    'ec28e6094c3c7d86adabcf28217b224084d9097d234852dee4b560b6ea79582b',
-    '4eb8a7962e5dd21a0fe7d50c0da9dc174d6410076b67a4c874caccde3f4336a5',
-    'f8366cda1e55440af60e4d0fc8ce214744e31e92effe878eb114e1e9fa5e93a6',
-    '4455c548e49138720953f151f33be9bd45f364ed0df8f05abebb5b50b83a062d',
-    'c968fe85a4026835390155fa01aad3fde09dcc4f9195d7ef4830604daf808b9d',
-    'a1ba82b5fc1e46ebfab61fe422d018725748a8132b40ac077e30d8e5a99e7344'
+    '2382d99e1fc3f2a7aa7914a5a3139330ed247573d4f125dbb7e6a3e45901c725'
   ];
 
   const handleSubmit = async (event) => {
@@ -132,13 +127,13 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
             if (updateResponse.ok) {
               console.log('Data updated successfully:', data);
               setScore(newScore); // Update the score locally
-              navigate(`/level${currentLevel + 1}`); // Navigate to the next level
+              navigate(`/level${currentLevel + 3}`); // Navigate to the next level
             } else {
               console.error('Failed to update data:', updateResponse.statusText);
             }
           } else {
             // If the level does not match the required criteria, just navigate to the next level
-            navigate(`/level${currentLevel + 1}`);
+            navigate(`/level${currentLevel + 3}`);
           }
         } else {
           console.error('No existing data found for the given roll number.');
