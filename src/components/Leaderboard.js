@@ -47,7 +47,7 @@ const Leaderboard = () => {
                   <span className="leaderboard-name">
                     {player.rollnum}
                     {index === 0
-                    
+
                     }
                   </span>
                   <span

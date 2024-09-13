@@ -120,7 +120,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
           // Check if the current level is 1 plus the level in existing data
           if (currentLevel === existingData.level + 1) {
             // If user data exists and level is correct, update it
-            const updateResponse = await fetch(`https://jsonserver-production-dc15.up.railway.app/records/${existingData.id}`, {
+            const updateResponse = await fetch(`https://jsonserver-production-dc15.up.railway.app/${existingData.id}`, {
               method: 'PUT', // Use PUT or PATCH for updating the existing entry
               headers: {
                 'Content-Type': 'application/json',
