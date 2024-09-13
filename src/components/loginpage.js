@@ -44,7 +44,7 @@ const LoginPage = ({ startTimer, setUserInfo }) => {
 
   const checkRollNoExists = async (rollNo) => {
     try {
-      const response = await fetch(`https://jsonserver-production-dc15.up.railway.app/books?rollnum=${rollNo}`);
+      const response = await fetch(`https://json-production-4a9d.up.railway.app/records?rollnum=${rollNo}`);
       const data = await response.json();
       return data.length > 0; // Returns true if roll number already exists
     } catch (error) {
@@ -96,7 +96,7 @@ const LoginPage = ({ startTimer, setUserInfo }) => {
   const submitUserData = async () => {
     const userData = { username: name, rollnum: rollNo, level: 0, timeLeft: 0, score: 0,};
     try {
-      const response = await fetch('https://jsonserver-production-dc15.up.railway.app/books', {
+      const response = await fetch('https://json-production-4a9d.up.railway.app/records', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
