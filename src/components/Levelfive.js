@@ -79,7 +79,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleCastSpell = () => {
-    const dummyPassword = 'reconnaissance'; // Dummy password for testing
+    const dummyPassword = 'sandbox'; // Dummy password for testing
     if (castSpellAnswer.toLowerCase() === dummyPassword) {
       setIsSpellValidated(true); // Spell validated successfully
     } else {
@@ -250,18 +250,17 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
                   <FaStar className="star-icon center" />
                   <FaStar className="star-icon" />
                 </div>
-                <p className=' animate__animated animate__fadeInRight'>You have successfully cast the spell. Here’s to learning a new one!</p>
-                <button className=" animate__animated animate__fadeInDownBig" onClick={handleNextLevel}>Next Level</button>
+                <h2 className=' animate__animated animate__fadeInRight'>Done with the game? Fine, Our HR will get back to you!!</h2>
+                <button className=" animate__animated animate__fadeInDownBig" onClick={handleNextLevel}>Finish</button>
               </div>
             ) : (
               <div className='column'>
                 <img src={Img} alt="hat" className='photo  animate__animated animate__fadeInLeft' />
-                <h1 className='heading  animate__animated animate__fadeInRight' style={{color:"red"}}>"Reconnaissance"</h1>
-                <h1 className="level-indicator  animate__animated animate__fadeInLeft">Cast the spell to proceed:</h1>
+                <h1 className="level-indicator  animate__animated animate__fadeInLeft">Cast below spell to proceed:</h1>
                 
-                <p className=' animate__animated animate__fadeInRight'> 
-                  Reconnaissance refers to the process where attackers gather information about a target system, network, or organization before launching an attack. 
-                </p>
+                <h2 className=' animate__animated animate__fadeInRight'> 
+                  Have you ever heard Vigenère (key: HackTheBot): Zapnuvb
+                </h2>
                 
                 <br/>
                 

@@ -77,7 +77,7 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
   };
 
   const handleCastSpell = () => {
-    const dummyPassword = 'reconnaissance'; // Dummy password for testing
+    const dummyPassword = 'firewall'; // Dummy password for testing
     if (castSpellAnswer.toLowerCase() === dummyPassword) {
       setIsSpellValidated(true); // Spell validated successfully
     } else {
@@ -254,12 +254,11 @@ const Levelone = ({ username, rollnum, initialScore, timeLeft }) => {
             ) : (
               <div className='column'>
                 <img src={Img} alt="hat" className='photo  animate__animated animate__fadeInLeft' />
-                <h1 className='heading  animate__animated animate__fadeInRight' style={{color:"red"}}>"Reconnaissance"</h1>
-                <h1 className="level-indicator  animate__animated animate__fadeInLeft">Cast the spell to proceed:</h1>
+                <h1 className="level-indicator  animate__animated animate__fadeInLeft">Cast below spell to proceed:</h1>
                 
-                <p className=' animate__animated animate__fadeInRight'> 
-                  Reconnaissance refers to the process where attackers gather information about a target system, network, or organization before launching an attack. 
-                </p>
+                <h2 className=' animate__animated animate__fadeInRight'> 
+                    Shift letters by 13 characters: sverjnyy
+                </h2>
                 
                 <br/>
                 
